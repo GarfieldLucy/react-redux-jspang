@@ -11,6 +11,7 @@ const defaultState = {
 export default (state = defaultState, action) => {
 
     // reducer 中只能接收 state ，不能改变 state
+    // 不允许异步，只能是纯函数
     if (action.type === CHANGE_INPUT) {
         let newState = JSON.parse(JSON.stringify(state))
         newState.inputValue = action.value

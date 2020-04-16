@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import 'antd/dist/antd.css'
-import { Input, Button, List } from 'antd'
 import store from './store'
 import { changeInputAction, addItemAction, deleteItemAction } from './store/actionCreators'
+import TodoListUI from './TodoListUI'
 
 class TodoList extends Component {
     constructor(props) {
@@ -13,34 +13,20 @@ class TodoList extends Component {
         this.changeInputValue = this.changeInputValue.bind(this)
         this.storeChange = this.storeChange.bind(this)
         this.clickBtn = this.clickBtn.bind(this)
+        this.deleteItem = this.deleteItem.bind(this)
         // 虽然 dispatch 已经修改了 store 中的数据，但需要 subscribe 通知一下页面
         store.subscribe(this.storeChange)
     }
 
-    render() {
+    render () {
         return (
-            <div style={{margin: '10px'}}>
-                <Input
-                    placeholder={this.state.inputValue}
-                    style={{ width: '250px', marginRight: '10px'}}
-                    onChange={this.changeInputValue}
-                >
-                </Input>
-                <Button
-                    type="primary"
-                    onClick={this.clickBtn}
-                >
-                    增加
-                </Button>
-
-                <div style={{margin: '10px', width: '300px'}}>
-                    <List
-                        bordered
-                        dataSource={this.state.list}
-                        renderItem={(item, index) => (<List.Item onClick={this.deleteItem.bind(this, index)}>{item}</List.Item>)}
-                    ></List>
-                </div>
-            </div> 
+            <TodoListUI
+                inputValue = { this.state.inputValue }
+                list = { this.state.list }
+                changeInputValue = { this.changeInputValue }
+                clickBtn = { this.clickBtn }
+                deleteItem = { this.deleteItem }
+            />
         )
     }
 
